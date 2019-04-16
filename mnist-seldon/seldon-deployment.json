@@ -47,11 +47,6 @@
 						"value":"mnist-10"
 					},
 					{
-						"name":"model_version",
-						"type":"STRING",
-						"value":"mnist-service"
-					},
-					{
 						"name":"model_output",
 						"type":"STRING",
 						"value":"predictions"

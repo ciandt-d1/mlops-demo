@@ -124,17 +124,17 @@
 									{
 										"name":"rest_endpoint",
 										"type":"STRING",
-										"value":"http://mnist-200:8000"
+										"value":"http://mnist-100:8000"
 									},
 									{
 										"name":"grpc_endpoint",
 										"type":"STRING",
-										"value":"mnist-200:9000"
+										"value":"mnist-100:9000"
 									},
 									{
 										"name":"model_name",
 										"type":"STRING",
-										"value":"mnist-200"
+										"value":"mnist-100"
 									},
 									{
 										"name":"model_output",
@@ -158,17 +158,17 @@
 								{
 									"name":"rest_endpoint",
 									"type":"STRING",
-									"value":"http://mnist-100:8000"
+									"value":"http://mnist-200:8000"
 								},
 								{
 									"name":"grpc_endpoint",
 									"type":"STRING",
-									"value":"mnist-100:9000"
+									"value":"mnist-200:9000"
 								},
 								{
 									"name":"model_name",
 									"type":"STRING",
-									"value":"mnist-100"
+									"value":"mnist-200"
 								},
 								{
 									"name":"model_output",

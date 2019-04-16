@@ -23,40 +23,106 @@
 							],
 							"terminationGracePeriodSeconds": 1
 						}
+					},
+					{
+						"spec": {
+							"containers": [
+								{
+									"image": "fabito/tfserving-proxy:rest-0.1",
+									"name": "classifier-2"
+								}
+							],
+							"terminationGracePeriodSeconds": 1
+						}
 					}
 				],
             "graph": {
-				"name": "classifier-1",
-				"endpoint": { "type" : "REST" },
-				"type": "MODEL",
-				"children": [],
+				"name": "tfserving-proxy",
+				"endpoint": {},
+				"implementation": "RANDOM_ABTEST",
 				"parameters": [
+				  {
+					"name": "ratioA",
+					"value": "0.5",
+					"type": "FLOAT"
+				  }
+				],				
+
+				"children": [
 					{
-						"name":"rest_endpoint",
-						"type":"STRING",
-						"value":"http://mnist-10:8000"
+					  "name": "classifier-1",
+					  "endpoint": {
+						"type": "REST"
+					  },
+					  "type": "MODEL",
+					  "children": [],
+
+					  "parameters": [
+						{
+							"name":"rest_endpoint",
+							"type":"STRING",
+							"value":"http://mnist-10:8000"
+						},
+						{
+							"name":"grpc_endpoint",
+							"type":"STRING",
+							"value":"mnist-10:9000"
+						},
+						{
+							"name":"model_name",
+							"type":"STRING",
+							"value":"mnist-10"
+						},
+						{
+							"name":"model_output",
+							"type":"STRING",
+							"value":"predictions"
+						},
+						{
+							"name":"model_input",
+							"type":"STRING",
+							"value":"x"
+						}
+					   ]						  
 					},
 					{
-						"name":"grpc_endpoint",
-						"type":"STRING",
-						"value":"mnist-10:9000"
-					},
-					{
-						"name":"model_name",
-						"type":"STRING",
-						"value":"mnist-10"
-					},
-					{
-						"name":"model_output",
-						"type":"STRING",
-						"value":"predictions"
-					},
-					{
-						"name":"model_input",
-						"type":"STRING",
-						"value":"x"
-					}
-		    	]	
+						"name": "classifier-2",
+						"endpoint": {
+						  "type": "REST"
+						},
+						"type": "MODEL",
+						"children": [],
+
+
+						"parameters": [
+							{
+								"name":"rest_endpoint",
+								"type":"STRING",
+								"value":"http://mnist-100:8000"
+							},
+							{
+								"name":"grpc_endpoint",
+								"type":"STRING",
+								"value":"mnist-100:9000"
+							},
+							{
+								"name":"model_name",
+								"type":"STRING",
+								"value":"mnist-100"
+							},
+							{
+								"name":"model_output",
+								"type":"STRING",
+								"value":"predictions"
+							},
+							{
+								"name":"model_input",
+								"type":"STRING",
+								"value":"x"
+							}
+						   ]								
+					  }
+				]
 			},
 			"name": "mnist-tfserving",
 			"replicas": 1

@@ -1,0 +1,72 @@
+{
+    "apiVersion": "machinelearning.seldon.io/v1alpha2",
+    "kind": "SeldonDeployment",
+    "metadata": {
+        "labels": {
+            "app": "seldon"
+        },
+    "name": "tfserving-mnist",
+	"namespace": "kubeflow"
+    },
+    "spec": {
+        "name": "tf-mnist",
+        "predictors": [
+            {
+                "componentSpecs": [
+					{
+						"spec": {
+							"containers": [
+								{
+									"image": "fabito/tfserving-proxy:rest-0.1",
+									"name": "tfserving-proxy"
+								}
+							],
+							"terminationGracePeriodSeconds": 1
+						}
+					}
+				],
+            "graph": {
+				"name": "tfserving-proxy",
+				"endpoint": { "type" : "REST" },
+				"type": "MODEL",
+				"children": [],
+				"parameters": [
+					{
+						"name":"rest_endpoint",
+						"type":"STRING",
+						"value":"http://mnist-10:8000"
+					},
+					{
+						"name":"grpc_endpoint",
+						"type":"STRING",
+						"value":"mnist-10:9000"
+					},
+					{
+						"name":"model_name",
+						"type":"STRING",
+						"value":"mnist-10"
+					},
+					{
+						"name":"model_version",
+						"type":"STRING",
+						"value":"mnist-service"
+					},
+					{
+						"name":"model_output",
+						"type":"STRING",
+						"value":"predictions"
+					},
+					{
+						"name":"model_input",
+						"type":"STRING",
+						"value":"x"
+					}
+		    	]	
+			},
+			"name": "mnist-tfserving",
+			"replicas": 1
+            }
+        ]
+    }
+}
+

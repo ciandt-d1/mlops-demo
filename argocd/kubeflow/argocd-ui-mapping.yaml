@@ -11,7 +11,7 @@ metadata:
       kind:  Mapping
       name: argo-cd-mapping
       prefix: /argocd/
-      rewrite: /
+      rewrite: /argocd/
       service: argocd-server.argocd
   name: argocd-mapping
   namespace: kubeflow
